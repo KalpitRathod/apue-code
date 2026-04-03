@@ -1,3 +1,9 @@
+/* ============================================================================
+ * The Echo Chamber
+ * ============================================================================
+ * A software module dedicated completely to output. When Make links 'print.o' into the binary, it simply stitches memory addresses together so main() knows exactly where in the executable text segment this printing function resides.
+ * ============================================================================
+ */
 /*	$NetBSD: print.c,v 1.55 2014/05/10 09:39:18 martin Exp $	*/
 
 /*

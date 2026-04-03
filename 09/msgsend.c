@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Sending Out of Bounds
+ * ============================================================================
+ * Not all data is equal. In early network protocols, there was often a need to send an 'urgent' message (like CTRL-C) quickly past the normal stream queue. Out-of-band data (MSG_OOB) was the messy, complicated answer to this architectural problem.
+ * ============================================================================
  */
-
 /* A simple program to illustrate the use of Message
  * Queues.
  *

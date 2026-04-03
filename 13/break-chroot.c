@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Escaping the Fake Root
+ * ============================================================================
+ * The chroot() system call was added in 1979 to create a fake root directory, isolating programs for security (the predecessor to Docker containers). But hackers quickly found an architectural flaw: if you had root privileges inside the chroot, you could trick the kernel into letting you walk right out of it!
+ * ============================================================================
  */
-
 /* From
  * https://web.archive.org/web/20160127150916/http://www.bpfh.net/simes/computing/chroot-break.html
  *

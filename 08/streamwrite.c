@@ -1,3 +1,9 @@
+/* ============================================================================
+ * UNIX Domain Streams (Write)
+ * ============================================================================
+ * Once a local stream connects, it behaves exactly like a connected phone call. The writer pushes bytes into the file descriptor, and the kernel effortlessly escorts them directly to the reader process without ever touching the actual hard drive plates.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

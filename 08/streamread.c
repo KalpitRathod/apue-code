@@ -1,3 +1,9 @@
+/* ============================================================================
+ * UNIX Domain Streams (Read)
+ * ============================================================================
+ * The Local UNIX Stream socket combines the reliability of TCP with the speed of local IPC. It bypasses the entire network stack (no IP addresses, no routing) and uses the filesystem (a socket file) to create a pristine, in-order, guaranteed byte tube between programs on the same disk.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

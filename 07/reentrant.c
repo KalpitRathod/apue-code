@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Danger of Interrupts
+ * ============================================================================
+ * Functions like malloc() or printf() use global locks or static buffers. If a signal interrupts malloc(), and your signal handler also calls malloc(), you corrupt the heap and destroy the program. This proves why signal handlers must solely use 'async-signal-safe' reentrant functions.
+ * ============================================================================
  */
-
 /*
  * Compile this program with:
  *

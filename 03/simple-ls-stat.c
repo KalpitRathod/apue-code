@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Peeking at the Inode: stat()
+ * ============================================================================
+ * While 'ls' reads the directory file, the directory only stores the filename and inode number. To get the file size, type, and permissions, you have to query the actual inode on disk. The stat() syscall retrieves this hidden metadata structure, making commands like 'ls -l' possible.
+ * ============================================================================
  */
-
 /*
  * Variant of 'simple-ls' that illustrates the
  * difference between stat(2) and lstat(2).
@@ -99,3 +90,59 @@ main(int argc, char **argv) {
 	(void)closedir(dp);
 	return EXIT_SUCCESS;
 }
+
+/* ============================================================================
+ * DOCUMENTATION
+ * ============================================================================
+ *
+ * INTENT:
+ *   Extends simple-ls to show the type of each directory entry using stat(2)
+ *   and lstat(2). Illustrates the difference: stat() follows symlinks (reports
+ *   the target's type), lstat() does not (reports "symbolic link"). By calling
+ *   both and comparing, we can say "symlink to regular file" etc.
+ *
+ * MACROS:
+ *   EXIT_SUCCESS   - 0; returned on success.
+ *   EXIT_FAILURE   - 1; returned on wrong argc or opendir failure.
+ *
+ * VARIABLES:
+ *   int argc              - Must be exactly 2.
+ *   char **argv           - argv[1] is the directory path to list.
+ *   DIR *dp               - Open directory stream handle.
+ *   struct dirent *dirp   - Current directory entry; d_name = filename.
+ *   struct stat sb        - Filled by stat()/lstat(); sb.st_mode = type+perms.
+ *   char *statType        - String description of file type from getType().
+ *
+ * FUNCTIONS:
+ *   getType(sb)           - Returns a string describing the file type based
+ *                           on the st_mode field using S_IS*() macros:
+ *                           S_ISREG, S_ISDIR, S_ISCHR, S_ISBLK, S_ISFIFO,
+ *                           S_ISLNK, S_ISSOCK. These macros mask st_mode with
+ *                           S_IFMT and compare to the type constants.
+ *   main(int, char**)     - Opens dir, iterates entries, prints type.
+ *   chdir(path)           - Changes working directory so stat/lstat calls on
+ *                           d_name (relative path) work correctly.
+ *   opendir(path)         - Opens a directory stream.
+ *   readdir(DIR*)         - Returns next directory entry.
+ *   closedir(DIR*)        - Closes directory stream.
+ *   stat(path, &sb)       - Follows symlinks; reports on the target file.
+ *   lstat(path, &sb)      - Does NOT follow symlinks; if path is a symlink,
+ *                           reports on the symlink itself.
+ *   strerror(errno)       - Converts errno to string.
+ *
+ * ALGORITHM:
+ *   1. Validate argc == 2; open directory.
+ *   2. chdir(argv[1]) so d_name entries can be stat'd as relative paths.
+ *   3. Loop readdir():
+ *      a. Call stat(d_name, &sb) → follows symlinks → get target type.
+ *      b. Call lstat(d_name, &sb) → if S_ISLNK(sb.st_mode), print "symlink to".
+ *      c. Print the type string from getType().
+ *   4. closedir().
+ *
+ * KEY SYSCALLS / LIBRARY FUNCTIONS:
+ *   stat(2)    - Follows symlinks; fails if target is broken or inaccessible.
+ *   lstat(2)   - Reports on symlink itself; always succeeds for existing link.
+ *   chdir(2)   - Changes CWD so relative d_name lookups resolve correctly.
+ *
+ * ============================================================================
+ */

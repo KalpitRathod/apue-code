@@ -1,3 +1,9 @@
+/* ============================================================================
+ * The Worker Bee of the Build
+ * ============================================================================
+ * In a multi-file project, components interact via header files. To show how a build artifact depends on object files, this represents a modularized piece of logic (a comparison function) that must be compiled into an object (.o) file before the final linking phase.
+ * ============================================================================
+ */
 /*	$NetBSD: cmp.c,v 1.17 2003/08/07 09:05:14 agc Exp $	*/
 
 /*

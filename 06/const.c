@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Read-Only Lock
+ * ============================================================================
+ * When you compile a constant string or variable in C, it doesn't go just anywhere in memory. It is packed into the '.rodata' (Read-Only Data) section of the executable. The hardware Memory Management Unit actively blocks any attempts to write here, causing a segfault.
+ * ============================================================================
  */
-
 /*
  * Show the difference between placements of the const keyword.
  *

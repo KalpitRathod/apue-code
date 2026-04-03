@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Streamlined Pipe
+ * ============================================================================
+ * Building standard pipes manually requires close/duping 4 different file descriptors in two processes. The popen() function was written to wrap this entire nightmare into a single call: it forks, execs a shell, wires a pipe to its stdin/out, and hands you a tidy FILE pointer.
+ * ============================================================================
  */
-
 /* This is basically the same as 'pipe2.c', but using
  * popen(3).  Make sure to illustrate the dangers of
  * invoking a shell on user-provided input.

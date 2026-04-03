@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Multi-Faceted Identity
+ * ============================================================================
+ * Permissions aren't just one number. A process has a Real UID (who logged in), an Effective UID (who the process is pretending to be right now for file access), and a Saved UID (to swap back to later). This program inspects the complexity of UNIX identity theft (the legal kind).
+ * ============================================================================
  */
-
 /* A simple program to illustrate the difference
  * between effective and real user IDs.
  *

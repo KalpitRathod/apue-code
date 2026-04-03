@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Nightmare of Segfaults
+ * ============================================================================
+ * A Segmentation Fault (SIGSEGV) is the hardware's Memory Management Unit (MMU) sending a distress signal because a program tried to access a restricted or NULL pointer. Without C's absolute trust in pointers, UNIX wouldn't be fast; without segfaults, it wouldn't be secure.
+ * ============================================================================
  */
-
 /* This program is all sorts of terrible.  If I catch
  * you doing anything like this in your code, you'll
  * have a hard time getting any points.

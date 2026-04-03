@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Syslog Revolution
+ * ============================================================================
+ * In early UNIX, programs printed errors directly to the terminal, garbling screens. Eric Allman invented 'Syslog' for Sendmail, creating a unified, system-wide logging hierarchy. Now demons could beam their whispers and screams to a centralized file without disturbing the user interface.
+ * ============================================================================
  */
-
 /* A simple program illustrating the use of syslog(3).
  * Just run the program, then send it SIGQUIT (^\),
  * or SIGINFO (^T), or SIGUSR[12].

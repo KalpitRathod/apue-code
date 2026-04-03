@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Integer File Descriptors
+ * ============================================================================
+ * In the UNIX 'Everything is a File' paradigm, there are no complex structures to refer to open files—just small integers. The kernel promises to always hand out the lowest available number. This simple rule allowed programmers to predict and manipulate file channels elegantly.
+ * ============================================================================
  */
-
 /*
  * A program to show the value of some file
  * descriptors.
@@ -83,3 +74,60 @@ main() {
 
 	return EXIT_SUCCESS;
 }
+
+/* ============================================================================
+ * DOCUMENTATION
+ * ============================================================================
+ *
+ * INTENT:
+ *   Shows how the kernel assigns file descriptor integers and how they are
+ *   reused after close(). Demonstrates that the kernel always assigns the
+ *   LOWEST available fd, that stdio FILE* streams have underlying integer fds,
+ *   and that closing one fd doesn't affect others pointing to the same file.
+ *
+ * MACROS:
+ *   STDIN_FILENO   - 0; fd for standard input.
+ *   STDOUT_FILENO  - 1; fd for standard output.
+ *   STDERR_FILENO  - 2; fd for standard error.
+ *   O_RDONLY       - Open flag: open for reading only (no writing).
+ *   EXIT_FAILURE   - 1; returned on error.
+ *   EXIT_SUCCESS   - 0; returned on success.
+ *
+ * VARIABLES:
+ *   int fd1, fd2, fd3  - Integer file descriptors returned by open().
+ *                        fd1: first open of /dev/zero (gets 3).
+ *                        fd2: second open of /dev/zero (gets 4).
+ *                        fd3: third open after fd1 closed (reuses 3).
+ *   FILE *f            - stdio stream wrapping an fd; fileno(f) retrieves
+ *                        the underlying integer fd.
+ *
+ * FUNCTIONS:
+ *   main()             - Entry point; demonstrates fd allocation rules.
+ *   open(path, flags)  - Opens/creates a file; returns lowest free fd.
+ *   close(fd)          - Closes fd; makes the number available for reuse.
+ *   fopen(path, mode)  - C library wrapper around open(); returns FILE*.
+ *   fclose(fp)         - C library wrapper around close(); flushes and frees.
+ *   fileno(FILE*)      - Returns the underlying integer fd of a FILE* stream.
+ *   printf(fmt, ...)   - Prints fd numbers to stdout.
+ *   fprintf(stderr,...) - Prints error messages.
+ *   strerror(errno)    - Converts errno to human-readable string.
+ *   exit(status)       - Terminates with C library cleanup.
+ *
+ * ALGORITHM:
+ *   1. Print the values of STDIN, STDOUT, STDERR via fileno(stdin/out/err).
+ *   2. open("/dev/zero") → fd1 (expect 3, next after 0,1,2).
+ *   3. open("/dev/zero") again → fd2 (expect 4).
+ *   4. close(fd1) — fd 3 is now free.
+ *   5. open("/dev/zero") again → fd3 (expect 3, reusing fd1's slot).
+ *   6. close(fd2) and close(fd3).
+ *   7. fopen("/dev/zero") — also gets fd 3 (same allocation rule).
+ *   8. close(STDERR_FILENO), then open("/dev/stderr") → gets fd 2 (reused).
+ *
+ * KEY SYSCALLS / LIBRARY FUNCTIONS:
+ *   open(2)      - Kernel syscall; assigns lowest free fd.
+ *   close(2)     - Releases fd; makes integer reusable.
+ *   fileno(3)    - C library; reads fd from FILE* internals.
+ *   fopen(3)     - C library; wraps open(2).
+ *
+ * ============================================================================
+ */

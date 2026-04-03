@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Four Stages of Compilation
+ * ============================================================================
+ * In the beginning, C compilation felt like magic. But Dennis Ritchie designed it as a strict pipeline: Preprocessor (handles #includes and macros), Compiler (translates C to assembly), Assembler (translates assembly to machine code), and Linker (merges libraries). This file represents the raw input for that magnificent chain.
+ * ============================================================================
  */
-
 /* A very simple program to illustrate the different stages in the
  * compilation process.  First, use cpp(1) to pre-process the file; repeat
  * with FOOD defined to a different value.  Compare output, illustrate

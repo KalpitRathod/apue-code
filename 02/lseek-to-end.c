@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Appending by Seeking
+ * ============================================================================
+ * Before the O_APPEND flag was invented to guarantee atomic appending, programmers had to manually lseek() to the end of a file before writing. In a multi-user system, this created nasty race conditions. This file explores manually moving the pointer to the absolute edge of a file.
+ * ============================================================================
  */
-
 /*
  * This program creates a new file, writes ten bytes to it
  * and then seeks to the end of the file.  Where do we end up?

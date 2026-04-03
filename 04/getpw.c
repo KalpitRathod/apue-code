@@ -1,13 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Early Days of Password Files
+ * ============================================================================
+ * The /etc/passwd file originally held actual, unencrypted passwords. Later, they were encrypted. Eventually, they were moved to /etc/shadow. But the C library API remained the same: getpwuid() retrieves user structures from whatever text-based database the OS uses to define human users.
+ * ============================================================================
  */
-
-
 /* This program illustrates the use of the various
  * 'getpw*' functions.  If given a username or a uid,
  * it will attempt to print the information for the

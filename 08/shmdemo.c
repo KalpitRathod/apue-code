@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Fastest IPC: Shared Memory
+ * ============================================================================
+ * When databases grew enormous, copying rows back and forth between processes became too slow. Shared Memory maps the same RAM pages into both programs. It's the ultimate 'zero-copy' speed hack, making it the bedrock of high-performance localized systems like PostgreSQL.
+ * ============================================================================
  */
-
 /* A simple example to illustrate the use of shared
  * memory for IPC.
  *
@@ -80,3 +71,72 @@ main(int argc, char **argv) {
 
 	return EXIT_SUCCESS;
 }
+
+/* ============================================================================
+ * DOCUMENTATION
+ * ============================================================================
+ *
+ * INTENT:
+ *   Demonstrates System V shared memory IPC — the fastest IPC mechanism since
+ *   processes read/write shared physical memory pages directly with NO copying.
+ *   Two invocations share the same memory region:
+ *     ./shmdemo "hello"    → writer: stores "hello" in the segment.
+ *     ./shmdemo             → reader: prints the stored string.
+ *   Note: shared memory survives process exit; use 'ipcs -m' and 'ipcrm -m'
+ *   to inspect and delete. Multiple writers OVERWRITE the same location.
+ *
+ * MACROS:
+ *   SHM_ID       - 42; integer ID passed to ftok() to derive a unique key.
+ *                  Any non-zero int works; part of the key derivation.
+ *   SHM_SIZE     - 1024 bytes; size of the shared memory segment.
+ *   IPC_CREAT    - shmget() flag: create segment if it doesn't exist.
+ *   EXIT_FAILURE - 1; returned on any IPC error.
+ *   EXIT_SUCCESS - 0; returned on success.
+ *
+ * VARIABLES:
+ *   key_t key    - IPC key derived from a pathname+id by ftok(). Used to
+ *                  get the same shared memory segment across processes.
+ *   int shmid    - Shared memory segment identifier returned by shmget().
+ *                  Analogous to a file descriptor for the segment.
+ *   char *data   - Pointer to the shared memory region after shmat() attach.
+ *                  Writing through 'data' modifies the shared segment.
+ *
+ * FUNCTIONS:
+ *   main(int, char**) - Attaches to (or creates) shared memory; reads or writes.
+ *   ftok(path, id)    - Derives a System V IPC key from a file's inode+dev
+ *                       and the id byte. Both processes must use the same args.
+ *   shmget(key, size, flags) - Creates or opens a shared memory segment of
+ *                       'size' bytes. Returns shmid. If IPC_CREAT set, creates
+ *                       if it doesn't exist. Mode bits are 0666 here (any user).
+ *   shmat(shmid, addr, flags) - Attaches the segment to the process's address
+ *                       space. addr=0 means let kernel choose the address.
+ *                       Returns pointer to start of shared region. Returns
+ *                       (void*)(-1) on error.
+ *   strncpy(dst, src, n) - Copies string into shared memory (bounded by SHM_SIZE).
+ *   printf()          - Prints current segment contents (reader) or confirmation.
+ *   shmdt(data)       - Detaches the shared memory from this process's address
+ *                       space. Does NOT destroy the segment.
+ *   err(status, msg)  - Prints error and exits.
+ *
+ * ALGORITHM:
+ *   1. ftok("./shmdemo.c", SHM_ID) → derive key from this source file.
+ *      (Both writer and reader call ftok with same args → same key.)
+ *   2. shmget(key, SHM_SIZE, 0666|IPC_CREAT) → create/open segment.
+ *   3. shmat(shmid, 0, 0) → attach to our address space; get pointer 'data'.
+ *   4a. Writer (argc==2): strncpy(data, argv[1], SHM_SIZE) — write to segment.
+ *   4b. Reader (argc==1): printf(data) — read from segment.
+ *   5. shmdt(data) — detach; segment STILL EXISTS in kernel.
+ *
+ * KEY SYSCALLS / LIBRARY FUNCTIONS:
+ *   ftok(3)      - Derives IPC key; based on file inode + project ID.
+ *   shmget(2)    - Creates/opens shared memory segment; returns shmid.
+ *   shmat(2)     - Maps segment into process address space.
+ *   shmdt(2)     - Unmaps segment; does NOT free kernel resources.
+ *   shmctl(2)    - Control/destroy segment (not shown here; use IPC_RMID).
+ *
+ * CLEANUP:
+ *   ipcs -m              → list shared memory segments
+ *   ipcrm -m <shmid>     → delete a specific segment
+ *
+ * ============================================================================
+ */

@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Stack Smashing Playground
+ * ============================================================================
+ * One of the most famous computer security vulnerabilities in history is the Buffer Overflow (the Morris Worm exploited this in 1988). When you overstep an array in C, you overwrite the stack frame's return address. This file is a lethal playground for stack corruption.
+ * ============================================================================
  */
-
 /* This file is used together with the file 'main.c' to
  * help students use gdb(1) to understand
  * manipulations of strings and buffers.

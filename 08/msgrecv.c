@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Receiver's Block
+ * ============================================================================
+ * When a message queue is empty, the receiver goes to sleep (blocks). The kernel wakes it up the exact microsecond a new message arrives. This blocking architecture allowed UNIX to run hundreds of idle listener processes without wasting a single CPU cycle polling for data.
+ * ============================================================================
  */
-
 /* A simple program to illustrate the use of Message
  * Queues.
  *

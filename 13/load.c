@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Measuring the Weight of the OS
+ * ============================================================================
+ * The 'load average' (e.g. 1.05, 1.10, 0.95) was invented to give sysadmins a quick glance at system health. It measures the exponential moving average of processes either currently running or stuck waiting for the disk. This file directly queries that historic kernel metric.
+ * ============================================================================
  */
-
 /* Similar to what uptime(1) or w(1) print. */
 
 #include <err.h>

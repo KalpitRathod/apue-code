@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Two Types of Portals: Links
+ * ============================================================================
+ * Hard links point to the same physical inode, making two filenames truly identical twins. But you can't hard-link a directory (it causes infinite loops in the file tree). So symbolic links (symlinks) were invented in 4.2BSD as standard files that simply contain the text path of another file.
+ * ============================================================================
  */
-
 /* The world's most trivial 'ln -s', in a way. */
 
 #include <errno.h>

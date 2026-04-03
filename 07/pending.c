@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Queued in the Shadows
+ * ============================================================================
+ * If you block a signal using a mask, and the event occurs, it goes into a 'pending' state. The kernel remembers that someone tapped you on the shoulder. As soon as you lift the mask, WHAM! The signal is delivered instantly before executing the next instruction.
+ * ============================================================================
  */
-
 /* This program illustrates a number of perhaps confusing features of
  * signal delivery.  It shows how signals can be blocked, how pending
  * signals are merged, how you can jump out of a signal handler into

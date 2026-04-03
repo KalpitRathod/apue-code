@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Where Does It Really Begin?
+ * ============================================================================
+ * The function main() is not the real entry point of a C program. The true entry point is `_start`, a hidden piece of C runtime (crt0) code linked by GCC. `_start` sets up the environment, calls main, and then formally calls exit() with whatever main returned.
+ * ============================================================================
  */
-
 /* This program can be used to illustrates how the kernel sets up the
  * startup routine.  Call with "-e" to specify any of the functions as the
  * entry point instead of 'main'; compare otool(1)/objdump(1) output and

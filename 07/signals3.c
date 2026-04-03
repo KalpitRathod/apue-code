@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Signal Masking Tactics
+ * ============================================================================
+ * In modern POSIX, a program can say 'Do not disturb me with SIGALRM right now, I am updating a database file.' This introduced the structural signal mask, preventing database corruption by buffering interrupts until it was safe to acknowledge them.
+ * ============================================================================
  */
-
 /* This program illustrates blocking a signal and the
  * use of signal masks.
  *
@@ -136,3 +127,74 @@ main(int argc, char **argv) {
 	(void)printf("Now exiting.\n");
 	exit(EXIT_SUCCESS);
 }
+
+/* ============================================================================
+ * DOCUMENTATION
+ * ============================================================================
+ *
+ * INTENT:
+ *   Demonstrates POSIX signal masking — blocking specific signals so they are
+ *   held pending until explicitly unblocked. When SIGQUIT is blocked, pressing
+ *   ^\ queues the signal instead of delivering it immediately. After unblocking,
+ *   any pending SIGQUIT is delivered instantly. Also shows how to check for
+ *   pending signals and optionally ignore a signal even after it's pending.
+ *
+ * MACROS:
+ *   SLEEP          - Sleep duration (default 5 seconds). Override with -DSLEEP=N.
+ *   SIGQUIT        - Signal 3 (Ctrl+\).
+ *   SIGINT         - Signal 2 (Ctrl+C).
+ *   SIG_BLOCK      - sigprocmask() command: ADD signals in newmask to blocked set.
+ *   SIG_SETMASK    - sigprocmask() command: REPLACE blocked set with newmask.
+ *   SIG_IGN        - Signal disposition: ignore the signal completely.
+ *   SIG_ERR        - Returned by signal() on error.
+ *   EXIT_FAILURE  - 1; exit on error.
+ *   EXIT_SUCCESS  - 0; normal exit.
+ *
+ * VARIABLES:
+ *   int s              - Global counter; incremented per handler entry.
+ *   sigset_t newmask   - Signal set to add to the blocked mask (contains SIGQUIT).
+ *   sigset_t oldmask   - Saved previous signal mask. Restored after the demo.
+ *   sigset_t pendmask  - Receives set of pending signals from sigpending().
+ *   int ismember       - Boolean: 1 if SIGQUIT is in pendmask, 0 otherwise.
+ *
+ * FUNCTIONS:
+ *   sig_quit(signo)    - SIGQUIT handler; increments s, sleeps, returns.
+ *   sig_int(signo)     - SIGINT handler; increments s, returns immediately.
+ *   main(int, char**)  - Installs handlers, blocks SIGQUIT, sleeps, checks
+ *                        pending signals, optionally ignores, then unblocks.
+ *   signal(sig, fn)    - Installs signal handler.
+ *   sigemptyset(&set)  - Initializes set to empty (no signals).
+ *   sigaddset(&set, sig) - Adds 'sig' to the set.
+ *   sigprocmask(how, &new, &old) - Modifies process signal mask:
+ *                        SIG_BLOCK: blocked = blocked | new.
+ *                        SIG_SETMASK: blocked = new.
+ *                        'old' receives the previous mask (for restoration).
+ *   sigpending(&set)   - Fills 'set' with currently pending/blocked signals.
+ *   sigismember(&set, sig) - Returns 1 if sig is in set, 0 if not.
+ *   err(status, msg)   - Error exit.
+ *   sleep(n)           - Waits N seconds (or until a signal interrupts).
+ *   exit(status)       - Terminates.
+ *
+ * ALGORITHM:
+ *   1. Install sig_quit for SIGQUIT, sig_int for SIGINT via signal(3).
+ *   2. Build newmask = {SIGQUIT} via sigemptyset + sigaddset.
+ *   3. sigprocmask(SIG_BLOCK, &newmask, &oldmask) — block SIGQUIT.
+ *      Any ^\ during next step goes PENDING, not delivered.
+ *   4. sleep(SLEEP) — user can press ^\ without it being handled yet.
+ *   5. Optional: if argc>1, change SIGQUIT handler to SIG_IGN (even pending
+ *      signals, if ignored before unblocking, will not be delivered).
+ *   6. sigpending(&pendmask) → check if SIGQUIT is pending.
+ *   7. sigprocmask(SIG_SETMASK, &oldmask, NULL) — UNBLOCK SIGQUIT.
+ *      Pending SIGQUIT is delivered HERE, before next line executes.
+ *   8. sleep(SLEEP) — back to normal; ^\ delivers to handler.
+ *   9. exit(EXIT_SUCCESS).
+ *
+ * KEY SYSCALLS / LIBRARY FUNCTIONS:
+ *   sigprocmask(2)  - Gets/sets the process signal mask. Thread-safe.
+ *   sigpending(2)   - Queries which blocked signals are currently pending.
+ *   sigemptyset(3)  - Clears all signals from a sigset_t.
+ *   sigaddset(3)    - Adds one signal to a sigset_t.
+ *   sigismember(3)  - Tests if a signal is in a sigset_t.
+ *
+ * ============================================================================
+ */

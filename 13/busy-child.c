@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The CPU Hog Clone
+ * ============================================================================
+ * When testing process schedulers, you need workloads. This file spawns a child that aggressively consumes all available CPU cycles. It historically served as a stress-test to prove that the OS scheduler could fairly balance time across different users even under duress.
+ * ============================================================================
  */
-
 /* This program creates as many worker children as
  * requested.  To facilitate identification in the
  * process table, we self-exec with a fake argv[0].

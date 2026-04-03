@@ -1,3 +1,9 @@
+/* ============================================================================
+ * The Orchestrator: Make
+ * ============================================================================
+ * Stuart Feldman wrote 'Make' in 1976 because his colleagues at Bell Labs kept wasting time compiling unchanged files or forgetting to compile changed ones. Make reads a Makefile graph and executes commands based on file modification timestamps. This file acts as the entry point to a simple project orchestrated by Make.
+ * ============================================================================
+ */
 /*	$NetBSD: main.c,v 1.5 2016/09/05 01:00:07 sevan Exp $	*/
 
 /*-

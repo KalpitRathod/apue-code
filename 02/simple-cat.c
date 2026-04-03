@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * A Copy Machine in Software
+ * ============================================================================
+ * When you strip away the buffer management of the C library, copying data efficiently boils down to picking the right block size to read and write. Early hackers meticulously tuned this buffer size to match the physical sector size of their exact hard drives.
+ * ============================================================================
  */
-
 /*
  * Stripped down version of 'cat', using unbuffered I/O.
  * ./simple-cat < simple-cat.c

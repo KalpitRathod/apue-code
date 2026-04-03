@@ -1,3 +1,9 @@
+/* ============================================================================
+ * A Friendly Greeting to UNIX
+ * ============================================================================
+ * This is an introductory testbed program. While UNIX is renowned for being cryptic and terse (like 'ed' asking '?' for all errors), programs like this ensure the basic compilation toolchain and standard output mechanics are functioning correctly for the user.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

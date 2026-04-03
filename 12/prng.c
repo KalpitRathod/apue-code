@@ -1,3 +1,9 @@
+/* ============================================================================
+ * The Predictable Randomness
+ * ============================================================================
+ * Computers are perfectly deterministic machines; they cannot be truly random. Early UNIX programs relied on Pseudo-Random Number Generators (PRNGs) seeded by the clock. This file illustrates how math formulas mimic chaos, and why guessing the seed breaks early UNIX security.
+ * ============================================================================
+ */
 /* A simple program to illustrate the non-randomness
  * of pseudo-random number generators.
  *

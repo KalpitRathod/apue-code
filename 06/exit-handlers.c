@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Final Will and Testament
+ * ============================================================================
+ * Before a process vanishes into the void via exit(), the C library gives it a chance to clean its house. Using atexit(), functions are stacked in Last-In-First-Out order. However, if a program is violently killed or calls _exit(), these final wishes are mercilessly ignored.
+ * ============================================================================
  */
-
 /* A simple illustration of exit handlers.  Note that exit handlers are
  * pushed onto a stack and thus execute in reverse order.
  *
@@ -77,3 +68,64 @@ main(int argc, char **argv) {
 
 	return EXIT_SUCCESS;
 }
+
+/* ============================================================================
+ * DOCUMENTATION
+ * ============================================================================
+ *
+ * INTENT:
+ *   Demonstrates atexit(3) exit handlers — functions called automatically
+ *   during normal process termination. Shows that handlers run in LIFO order
+ *   (last registered, first called), and that _exit() and abort() bypass them.
+ *   Run as:
+ *     ./a.out          → main returns → handlers called (LIFO order)
+ *     ./a.out 1        → exit() inside func → handlers called
+ *     ./a.out 1 2      → _exit() inside func → handlers NOT called
+ *     ./a.out 1 2 3    → abort() inside func → handlers NOT called
+ *
+ * MACROS:
+ *   EXIT_SUCCESS   - 0; indicates successful completion.
+ *   EXIT_FAILURE   - 1; returned if atexit() registration fails.
+ *
+ * VARIABLES:
+ *   int argc       - Argument count; passed to func() to control exit path.
+ *   char **argv    - Argument vector; cast to void (unused in main).
+ *
+ * FUNCTIONS:
+ *   my_exit1()     - Exit handler 1; prints "first exit handler".
+ *   my_exit2()     - Exit handler 2; prints "second exit handler".
+ *   func(argc)     - Calls exit/abort/_exit based on argc value:
+ *                    argc==1: normal return (no forced exit from func)
+ *                    argc==2: exit() → handlers run
+ *                    argc==3: _exit() → handlers SKIP (no stdio flush either)
+ *                    argc==4: abort() → SIGABRT → core dump, no handlers
+ *   main()         - Registers handlers via atexit(); calls func().
+ *   atexit(fn)     - Registers fn as an exit handler. LIFO execution order.
+ *                    Can register the same handler multiple times.
+ *                    Returns 0 on success, non-zero on failure.
+ *   exit(status)   - Calls atexit handlers (LIFO), flushes stdio, terminates.
+ *   _exit(status)  - Terminates IMMEDIATELY; bypasses atexit handlers and
+ *                    stdio buffer flushing. Use after fork() in child that
+ *                    won't exec(), to avoid double-flushing parent's buffers.
+ *   abort()        - Raises SIGABRT; generates core dump; bypasses atexit.
+ *   printf()       - Used inside handlers to show execution order.
+ *
+ * ALGORITHM:
+ *   1. Register my_exit2 → registered first, runs LAST.
+ *   2. Register my_exit1 → registered second, runs SECOND.
+ *   3. Register my_exit1 again → registered third, runs FIRST.
+ *      Handler stack (top = runs first): [my_exit1, my_exit1, my_exit2]
+ *   4. Call func(argc):
+ *      - Prints "In func."
+ *      - Branches on argc to exit()/\_exit()/abort() or falls through.
+ *   5. If func returns normally: print "main is done", return EXIT_SUCCESS.
+ *   6. C runtime calls exit handlers in LIFO order if exit() was used.
+ *
+ * KEY SYSCALLS / LIBRARY FUNCTIONS:
+ *   atexit(3)   - Registers cleanup function; stored in C library.
+ *   exit(3)     - C library; runs atexit handlers then calls _exit(2).
+ *   _exit(2)    - Kernel syscall; immediate termination, no cleanup.
+ *   abort(3)    - Raises SIGABRT; default action is core dump.
+ *
+ * ============================================================================
+ */

@@ -1,3 +1,9 @@
+/* ============================================================================
+ * File Properties and Build Trees
+ * ============================================================================
+ * Understanding file stats isn't just for 'ls'—it's how the Make system itself works! Make relies entirely on the st_mtime (modification time) reported by the kernel to determine if dependency files are older or newer than target files.
+ * ============================================================================
+ */
 /*	$NetBSD: stat_flags.c,v 1.18 2003/10/27 00:12:41 lukem Exp $	*/
 
 /*-

@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Anatomy of a Running Clone
+ * ============================================================================
+ * A process is layered like an onion. At the bottom is the Text segment (instructions). Then initialized Data. Then Block Started by Symbol (BSS - uninitialized zeros). Then the Heap grows up, and the Stack grows down. This file prints out the exact memory addresses pointing at these physical zones.
+ * ============================================================================
  */
-
 /* This program allows us to visualize the layout of a
  * process in memory, printing the addresses of
  * various parts of the program, including components

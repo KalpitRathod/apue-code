@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Raw Bits from the Disk
+ * ============================================================================
+ * Buffered I/O (stdio) was added later for efficiency. But the raw foundation of UNIX is the unbuffered read() and write() syscalls. These copy bits straight from the kernel's buffer cache into the user's variables, bypassing all formatting safety nets.
+ * ============================================================================
  */
-
 /*
  * This trivial program illustrates how we might normally read and write
  * to a simple file. Here, we simply open the source code file, read the

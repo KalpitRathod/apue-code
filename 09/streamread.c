@@ -1,3 +1,9 @@
+/* ============================================================================
+ * The TCP Listener
+ * ============================================================================
+ * This is the backbone of the Internet. The sequence here—socket(), bind(), listen(), accept()—was designed at UC Berkeley in 1983. It mimics a telephone switchboard operator: creating a line, assigning a number, waiting for a ring, and finally connecting the call.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Resource Limits Struggle
+ * ============================================================================
+ * Early UNIX hardcoded the maximum number of open files (often 15 or 20) to save kernel memory. As programs like web servers grew, they needed thousands of descriptors. This file demonstrates the chaotic history of discovering just how many files a system will actually let you open simultaneously.
+ * ============================================================================
  */
-
 /*
  * This trivial program attempts to determine how many
  * open files a process can have.  It illustrates the
@@ -127,3 +118,65 @@ main() {
 
 	return EXIT_SUCCESS;
 }
+
+/* ============================================================================
+ * DOCUMENTATION
+ * ============================================================================
+ *
+ * INTENT:
+ *   Determines the maximum number of file descriptors a process can have
+ *   open simultaneously, using three independent methods and comparing them.
+ *   Illustrates compile-time vs runtime limit discovery, and resource limits.
+ *   Exercise: run, then 'ulimit -n 256' and run again to see changes.
+ *
+ * MACROS:
+ *   OPEN_MAX         - Compile-time constant from <limits.h>; may not be
+ *                      defined on all platforms (checked with #ifdef).
+ *   _SC_OPEN_MAX     - sysconf(3) query key for runtime max open files.
+ *   RLIMIT_NOFILE    - getrlimit(2) resource ID for number of open files.
+ *   EMFILE           - errno value: "too many open files" (process limit).
+ *   O_RDONLY         - Open flag: read-only, used in openFiles() to open fds.
+ *   EXIT_FAILURE     - 1; returned on sysconf or getrlimit failure.
+ *   EXIT_SUCCESS     - 0; returned on success.
+ *
+ * VARIABLES:
+ *   int openmax           - Holds the reported maximum open file count.
+ *   struct rlimit rlp     - Receives the current/max resource limits.
+ *                           rlim_cur = soft limit, rlim_max = hard limit.
+ *   struct stat stats     - Used by fstat() in countOpenFiles() to check
+ *                           whether a given fd is open (valid inode).
+ *   int count             - Count of currently open fds found by fstat loop.
+ *   int fd                - Fd returned by open() in openFiles().
+ *   int i                 - Loop counter.
+ *
+ * FUNCTIONS:
+ *   countOpenFiles(num) - Iterates fds 0..num-1 calling fstat() on each.
+ *                         A successful fstat means the fd is open.
+ *   openFiles(num)      - Opens /dev/null repeatedly until EMFILE (limit hit).
+ *                         Demonstrates actual max in practice.
+ *   main()              - Queries OPEN_MAX via 3 methods; calls openFiles().
+ *   sysconf(_SC_OPEN_MAX) - Runtime limit; may differ from compile-time value.
+ *   getrlimit(RLIMIT_NOFILE, &rlp) - Per-process limit; adjustable with ulimit.
+ *   system("getconf OPEN_MAX") - Spawns child shell to run getconf(1).
+ *   fstat(fd, &stats)   - Gets metadata of an open fd; fails if fd is closed.
+ *   open(path, flags)   - Opens a file; used to exhaust the fd table.
+ *   fflush(stdout)      - Flushes stdout before calling system() to avoid
+ *                         double-buffered output interleaving.
+ *
+ * ALGORITHM:
+ *   1. Print OPEN_MAX if defined; skip if not (platform-dependent).
+ *   2. Shell out to 'getconf OPEN_MAX' for another perspective.
+ *   3. Call sysconf(_SC_OPEN_MAX) — runtime kernel value.
+ *   4. Call getrlimit(RLIMIT_NOFILE) — per-process soft/hard limits.
+ *   5. Call openFiles(openmax) to empirically exhaust the fd table,
+ *      confirming which limit is actually enforced.
+ *
+ * KEY SYSCALLS / LIBRARY FUNCTIONS:
+ *   sysconf(3)      - Queries runtime system limits; returns long.
+ *   getrlimit(2)    - Gets/sets per-process resource limits.
+ *   fstat(2)        - Stats an open file descriptor (not a path).
+ *   open(2)         - Opens a file; used to fill the fd table.
+ *   system(3)       - C library; fork+exec a shell command; waits for it.
+ *
+ * ============================================================================
+ */

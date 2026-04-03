@@ -1,3 +1,9 @@
+/* ============================================================================
+ * Verifying Stream Integrity
+ * ============================================================================
+ * When reading streams, how do you know the data isn't mangled or truncated? Early programmers wrote ad-hoc checkers. This illustrates building robustness around raw reads, ensuring that the bites taken by read() actually constitute complete logical messages.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

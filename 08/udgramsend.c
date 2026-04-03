@@ -1,12 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Unreliable Local Delivery (Send)
+ * ============================================================================
+ * The sender fires its packets into the local domain socket. It requires zero setup handshake. It's the computing equivalent of yelling into a megaphone: you don't care if the listener is paying attention, you just broadcast the state and move on.
+ * ============================================================================
  */
-
 /*	$NetBSD: udgramsend.c,v 1.3 2003/08/07 10:30:50 agc Exp $
  *
  * Copyright (c) 1986, 1993

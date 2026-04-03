@@ -1,3 +1,9 @@
+/* ============================================================================
+ * UNIX Domain Datagrams (Send)
+ * ============================================================================
+ * To talk to a datagram reader, you just hurl a packet at its address. Unlike stream sockets, you don't 'connect' or shake hands. You just shoot data into the void of the kernel, trusting that a reader is currently awake and bound to that local socket address.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

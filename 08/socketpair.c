@@ -1,3 +1,9 @@
+/* ============================================================================
+ * The Full-Duplex Pipe
+ * ============================================================================
+ * The limitation of half-duplex pipes was annoying. Berkeley UNIX (BSD) introduced socketpair(), which instantly creates a fully bidirectional, nameless pipe. It uses the local socket machinery to finally let a parent and child have a free-flowing, two-way conversation without crisscrossing two discrete pipes.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

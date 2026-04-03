@@ -1,12 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- * 
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Rise of Collaborators
+ * ============================================================================
+ * At first, a file belonged to one owner. Then groups were added to allow specific teams to share files. Originally, you could only be in one group at a time! Berkeley (BSD) UNIX upgraded this so a user could be in multiple supplemental groups simultaneously, which this program inspects.
+ * ============================================================================
  */
-
 /* This program is a trivial version of the 'groups'
  * command.
  */

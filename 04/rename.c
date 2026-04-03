@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Atomic Movements
+ * ============================================================================
+ * Moving a file used to require two steps: link the new name, unlink the old name. If the power failed in between, you had two copies or a corrupted directory. The rename() syscall was added to guarantee atomic movement within the kernel, ensuring the filesystem never breaks during structural moves.
+ * ============================================================================
  */
-
 /* The world's most trivial 'mv', in a way. */
 
 #include <errno.h>

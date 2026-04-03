@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Double-Edged Sword of setuid
+ * ============================================================================
+ * Dennis Ritchie introduced 'setuid' in 1973 (and patented it). It allowed normal users to safely change their passwords by temporarily elevating their privileges to root while running the 'passwd' program. This single feature is the backbone of UNIX security, and the source of its most devastating exploits.
+ * ============================================================================
  */
-
 /* This trivial program illustrates the use of
  * setuid(2) and seteuid(2).  After compiling,
  * chmod(1) and chown(1) as needed to access a

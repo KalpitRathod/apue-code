@@ -1,12 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Unreliable Local Delivery (Read)
+ * ============================================================================
+ * Sometimes, speed trumps reliability. Datagrams on the local domain mimic UDP but stay on the machine. If the kernel buffer is filled, it just drops the messages silently. This is crucial for things like fast logging daemons where crashing the sender over a full log buffer is unacceptable.
+ * ============================================================================
  */
-
 /*	$NetBSD: udgramread.c,v 1.3 2003/08/07 10:30:50 agc Exp $
  *
  * Copyright (c) 1986, 1993

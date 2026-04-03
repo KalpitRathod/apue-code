@@ -1,12 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Polling Revolution: Select
+ * ============================================================================
+ * Before select(), if a server had 10 clients, it had to fork() 10 process clones to read them all, wasting massive resources. The select() syscall changed the world by letting a single process ask the OS: 'Watch these 10 sockets, and wake me up when ANY of them have data.'
+ * ============================================================================
  */
-
 /* Increasingly loosely based on:
  * $NetBSD: strchkread.c,v 1.3 2003/08/07 10:30:50 agc Exp $
  *

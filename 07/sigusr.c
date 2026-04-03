@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Custom Conversations: SIGUSR1 / 2
+ * ============================================================================
+ * The OS creators didn't know every signal someone might need, so they provided two explicitly reserved for application developers: SIGUSR1 and SIGUSR2. You can use these arbitrary pings to force a server to reload its config or dump stats without killing it.
+ * ============================================================================
  */
-
 /* A simple program illustrating the implementation of a signal handler.
  * Note that we can use the same signal handler for multiple different
  * signals.

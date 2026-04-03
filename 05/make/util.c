@@ -1,3 +1,9 @@
+/* ============================================================================
+ * The Shared Toolbelt
+ * ============================================================================
+ * In any C project, you invariably end up with a utility file holding helper functions used across the codebase. Compiling this into 'util.o' prevents duplicating the logic across multiple systems, hinting at the future need for shared dynamic libraries.
+ * ============================================================================
+ */
 /*	$NetBSD: util.c,v 1.34 2011/08/29 14:44:21 joerg Exp $	*/
 
 /*

@@ -1,3 +1,9 @@
+/* ============================================================================
+ * UNIX Domain Datagrams (Read)
+ * ============================================================================
+ * Datagrams are like passing notes in class: fast, boundary-preserving, but with no guarantee of delivery or order. They were created for lightweight, connectionless messaging. Here, a program binds a filesystem socket name to catch these rapid-fire, unreliable notes from the local machine.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

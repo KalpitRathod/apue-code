@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * The Lone Monopolist
+ * ============================================================================
+ * A single-threaded loop calculating nothing, specifically designed to test the kernel's CPU limitation boundaries. It shows the impact of a runaway program on standard system responsiveness before advanced preemption features existed.
+ * ============================================================================
  */
-
 int
 main() {
 	int i = 0;

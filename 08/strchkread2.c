@@ -1,3 +1,9 @@
+/* ============================================================================
+ * Advanced Stream Verification
+ * ============================================================================
+ * An evolution of stream integrity checking. As systems ran faster, the boundaries of byte streams became blurrier. Advanced error checking and boundary parsing are required to survive network transmission anomalies.
+ * ============================================================================
+ */
 /* This file is part of the sample code and exercises
  * used by the class "Advanced Programming in the UNIX
  * Environment" taught by Jan Schaumann

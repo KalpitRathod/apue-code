@@ -1,18 +1,9 @@
-/* This file is part of the sample code and exercises
- * used by the class "Advanced Programming in the UNIX
- * Environment" taught by Jan Schaumann
- * <jschauma@netmeister.org> at Stevens Institute of
- * Technology.
- *
- * This file is in the public domain.
- *
- * You don't have to, but if you feel like
- * acknowledging where you got this code, you may
- * reference me by name, email address, or point
- * people to the course website:
- * https://stevens.netmeister.org/631/
+/* ============================================================================
+ * Measuring the Metaphor
+ * ============================================================================
+ * C is deeply tied to the machine architecture. As UNIX moved from 16-bit PDP-11s to 32-bit VAXes and 64-bit AMD machines, the sizes of integers and pointers changed wildly. This tool measures exactly how the compiler currently understands the physical hardware word sizes.
+ * ============================================================================
  */
-
 /* Students frequently think that the result of 'sizeof'
  * is equivalent to that of strlen(3).  Let's illustrate
  * the differences. */
